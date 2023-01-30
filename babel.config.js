@@ -1,4 +1,4 @@
-{
+module.exports = {
     /*
         a preset is a set of plugins used to support particular language features.
         The two presets Babel uses by default: es2015, react
