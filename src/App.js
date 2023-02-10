@@ -13,7 +13,7 @@ import UserEdit from "./component/User/user-edit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import "./css/index.css"
+// import "./css/index.css"
 // import "./css/layout.css"
 import Routers from "./routes/router"
 import { createBrowserRouter, RouterProvider, Routes, BrowserRouter as Router } from "react-router-dom";
@@ -21,40 +21,45 @@ import { createBrowserRouter, RouterProvider, Routes, BrowserRouter as Router } 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import {ContentWrapper} from './styledComponent/layout'
 
 const App = () =>{
     return (
-        <div className="layout-fixed">
-            <div className="wrapper">
-                {/* <Box sx={{ display: 'flex' }}> */}
-                    {/* <FormComponent /> */}
-                    <div className="topnavbar-wrapper">
-                        <div className="navbar topnavbar">
-                            <HeaderComponent />
-                        </div>
-                    </div>
-                    <Router>
-                        <div className="aside-container">
-                            <div className="aside-inner">
-                                <SideNaviComponent />
-                            </div>
-                        </div>
-                        <section className="section-container">
-                            <div className="content-wrapper">
-                                <Routers />
-                            </div>
-                        </section>
-                    </Router>
-                    {/* <React.StrictMode>
-                        <RouterProvider router={routers} />
-                    </React.StrictMode>   */}
-                {/* </Box> */}
-            </div>
-        </div>
+        <Router>
+            <HeaderComponent />
+            <SideNaviComponent />
+            <ContentWrapper>
+                <Routers />
+            </ContentWrapper>
+        </Router>
     )
 }
 
+
+
 export default App
+// <div className="layout-fixed">
+//     <div className="wrapper">
+//             <div className="topnavbar-wrapper">
+//                 <div className="navbar topnavbar">
+//                     <HeaderComponent />
+//                 </div>
+//             </div>
+//             <Router>
+//                 <div className="aside-container">
+//                     <div className="aside-inner">
+//                         <SideNaviComponent />
+//                     </div>
+//                 </div>
+//                 <section className="section-container">
+//                     <div className="content-wrapper">
+//                         <Routers />
+//                     </div>
+//                 </section>
+//             </Router>
+//     </div>
+// </div>
+
 // <div className="wrapper">
 //     <div className="topnavbar-wrapper">
 //         <HeaderComponent />

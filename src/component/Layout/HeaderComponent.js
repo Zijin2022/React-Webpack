@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import {UserService} from '../../service/user/user-service.js'
+import {TopNaviBarContent} from "../../styledComponent/layout";
 
 const drawerWidth = 240;
 
@@ -106,50 +107,53 @@ function HeaderComponent() {
     })
   }
 
+  
+
   return (
-    <div className="container">
-      
-      <Button onClick={getRoleItems} variant="contained">getRoleItems</Button>
-      <div className="row justify-content-md-center">
-        {
-          roleId && 
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-          >
-            <Stack spacing={2} direction="row">
-            <Box sx={{ minWidth: 120}}>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 120 , backgroundColor: 'white'}}>
-                <InputLabel id="demo-simple-select-label">RoleId</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={roleId}
-                  label="roleId"
-                  onChange={handleRoleIdChange}
-                  >
-                  {
-                    JSON.parse(localStorage.getItem('skb.roleItems'))?.map(({ roleId, roleName }) => {
+    <>
+      <TopNaviBarContent>
+        <Button onClick={getRoleItems} variant="contained">getRoleItems</Button>
+        <div>
+          {
+            roleId && 
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-end"
+            >
+              <Stack spacing={2} direction="row">
+              <Box sx={{ minWidth: 120}}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 , backgroundColor: 'white'}}>
+                  <InputLabel id="demo-simple-select-label">RoleId</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={roleId}
+                    label="roleId"
+                    onChange={handleRoleIdChange}
+                    >
+                    {
+                      JSON.parse(localStorage.getItem('skb.roleItems'))?.map(({ roleId, roleName }) => {
 
-                      return <MenuItem key={roleId} value={roleId}>{roleName}</MenuItem>
+                        return <MenuItem key={roleId} value={roleId}>{roleName}</MenuItem>
+                      }
+                      )
                     }
-                    )
-                  }
-                </Select>
-              </FormControl>
-            </Box>
-              
+                  </Select>
+                </FormControl>
+              </Box>
+                
 
-              <IconButton aria-label="logout" onClick={removeTokenItem}>
-                <LogoutIcon />
-              </IconButton>
-            </Stack>
-          </Grid>
-        }
+                <IconButton aria-label="logout" onClick={removeTokenItem}>
+                  <LogoutIcon />
+                </IconButton>
+              </Stack>
+            </Grid>
+          }
 
-      </div>
-    </div>
+        </div>
+      </TopNaviBarContent>
+    </>
     // <nav class="navbar topnavbar" role="navigation">
     //   <div class="navbar-header">
     //       <a class="navbar-brand" href="#/">

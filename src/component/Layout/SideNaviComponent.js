@@ -32,7 +32,8 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {UserService} from '../../service/user/user-service.js'
 import { useSelector, useDispatch} from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link,NavLink,useLocation } from "react-router-dom";
+import {SideBar} from '../../styledComponent/layout'
 
 const drawerWidth = 240;
 // interface Props {
@@ -71,19 +72,22 @@ const drawerWidth = 240;
   // { icon: <Public />, label: 'Hosting' },
 // ];
 
-function SideNaviComponent(props) {
+function SideNaviComponent() {
   const [open, setOpen] = React.useState({});
   const [lists, setLists] = React.useState([]);
   const list1 = useSelector(state => state.router?.menuItems);
+  const location = useLocation();
+
+  console.log('location :', location);
 
   React.useEffect(() =>{
-    let list2 = localStorage.getItem('skb.menuItems')
-    console.log('SideNaviComponent - useEffect 0', list1, list2);
+    const list2 = localStorage.getItem('skb.menuItems')
+    // console.log('SideNaviComponent - useEffect 0', list1, list2);
     if(list1) {
-      console.log('SideNaviComponent - useEffect 1', JSON.parse(list1));
+      // console.log('SideNaviComponent - useEffect 1', JSON.parse(list1));
       setLists(JSON.parse(list1));
     } else if (list2) {
-      console.log('SideNaviComponent - useEffect 2', JSON.parse(list2));
+      // console.log('SideNaviComponent - useEffect 2', JSON.parse(list2));
       setLists(JSON.parse(list2));
     }
   }, [])
@@ -137,37 +141,57 @@ function SideNaviComponent(props) {
   //   dispatch({type: 'EDIT_URL', payload: paras})
   }
 
+  const activeStyle ={
+    fontWeight: "bold", 
+    color: "red"
+  }
 
   return (
-    <div className="sidebar">
-        <Box sx={{ display: 'auto' }}>
-          {lists && lists.map(({ parentName, menuChildItems }) => {
-            return (
-              <div key={parentName}>
-                <ListItem button onClick={handleClick(parentName)}>
-                  <ListItemIcon>
-                    <MailIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={parentName} />
-                  {open ? (open[parentName] ? <ExpandLess /> : <ExpandMore/> ) : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open ? open[parentName] : false} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding dense>
-                    {menuChildItems.map(({ funcName: childLabel, funcURL }) => (
-                      <ListItem key={childLabel} button component={Link} to={funcURL} alignItems="center">
-                        <ListItemIcon sx={{justifyContent: 'center'}} >
-                          <MailIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={childLabel} />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              </div>
-            );
-          })}
-        </Box>
-    </div>
+    <SideBar>
+      <Box sx={{ display: 'auto' }}>
+        {lists && lists.map(({ parentName, menuChildItems }) => {
+          return (
+            <div key={parentName}>
+              <ListItem button onClick={handleClick(parentName)}>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary={parentName} />
+                {open ? (open[parentName] ? <ExpandLess /> : <ExpandMore/> ) : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open ? open[parentName] : false} timeout="auto" unmountOnExit>
+                <ul>
+                  {menuChildItems.map(({ funcName: childLabel, funcURL }) => (
+                  <li key={funcURL}>
+                    <NavLink to={funcURL} style={({ isActive }) => isActive ? activeStyle : undefined }>{childLabel}</NavLink>
+                  </li>
+                  ))}
+                </ul>
+              </Collapse>
+            </div>
+          );
+        })}
+        {/* <NavLink component="div" disablePadding dense style={({ isActive }) => ({ color: isActive ? "green" : "black" })}>
+            <ListItem key={childLabel} button component={Link} to={funcURL} alignItems="center">
+              <ListItemIcon sx={{justifyContent: 'center'}} >
+                <MailIcon />
+              </ListItemIcon>
+              {childLabel}
+            </ListItem>
+        </NavLink> */}
+        {/* <ul>
+          <li>
+            <NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined }>home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/sys-user" style={({ isActive }) => isActive ? activeStyle : undefined }>sys-user</NavLink>
+          </li>
+          <li>
+            <NavLink to="/faq" style={({ isActive }) => isActive ? activeStyle : undefined }>faq</NavLink>
+          </li>
+        </ul> */}
+      </Box>
+    </SideBar>
     // <div>
     //   <div className="aside-inner">
     //     <nav className="sidebar" sidebar-anyclick-close="">
@@ -179,5 +203,15 @@ function SideNaviComponent(props) {
     // </div>
   )
 }
+{/* <NavLink component="div" disablePadding dense style={({ isActive }) => ({ color: isActive ? "green" : "black" })}>
+                  {menuChildItems.map(({ funcName: childLabel, funcURL }) => (
+                    <ListItem key={childLabel} button component={Link} to={funcURL} alignItems="center">
+                      <ListItemIcon sx={{justifyContent: 'center'}} >
+                        <MailIcon />
+                      </ListItemIcon>
+                      {childLabel}
+                    </ListItem>
+                  ))}
+                </NavLink> */}
 
 export default SideNaviComponent

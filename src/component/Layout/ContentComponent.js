@@ -124,20 +124,21 @@ function ContentComponent() {
   //   setRoleId(event.target.value);
   // };
 
+
+    // margin-top: -1px;
+
   return (
-    <div>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Stack spacing={2} direction="row">
-          <Button onClick={login} variant="contained">login</Button>
-          <Button onClick={getMemuTree} variant="contained">getMemuTree</Button>
-          <Button onClick={getRoleItems} variant="contained">getRoleItems</Button>
-          <Button onClick={gotoPage} variant="contained">gotoUserPage</Button>
-        </Stack>
-        <Typography paragraph>
-          Consequat 
-        </Typography>
-      </Box>
-    </div>
+    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Stack spacing={2} direction="row">
+        <Button onClick={login} variant="contained">login</Button>
+        <Button onClick={getMemuTree} variant="contained">getMemuTree</Button>
+        <Button onClick={getRoleItems} variant="contained">getRoleItems</Button>
+        <Button onClick={gotoPage} variant="contained">gotoUserPage</Button>
+      </Stack>
+      <Typography paragraph>
+        Consequat 
+      </Typography>
+    </Box>
   )
 }
 
